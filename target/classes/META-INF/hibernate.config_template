@@ -1,0 +1,22 @@
+The following is a template for the hibernate.cfg.xml file.
+Enter your MySQL database credentials in the the the appropriate locations.
+
+
+<hibernate-configuration>
+    <session-factory>
+
+        <property name = "hibernate.connection.url">jdbc:mysql://localhost:3306/todo</property>
+
+        <property name = "hibernate.connection.username">DATABASE_USER</property>
+
+        <property name = "hibernate.connection.password">DATABASE_PASSWORD</property>
+
+        <property name = "hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+        <property name = "hibernate.show_sql">true</property>
+
+        <property name = "hibernate.hbm2ddl.auto">create</property>
+
+        <mapping class="com.hibernate.todotomcat.Task"/>
+    </session-factory>
+</hibernate-configuration>

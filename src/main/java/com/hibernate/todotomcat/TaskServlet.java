@@ -48,32 +48,36 @@ public class TaskServlet extends HttpServlet {
                 session.persist(task);
             }
 
-            //Handles the "delete" action
-//        } else if ("delete".equals(action)) {
-//            //Gets the task id to be deleted
-//            int id = Integer.parseInt(request.getParameter("id"));
-//            //Finds the task by id and if it exists then it deletes it
-//            Task task = session.find(Task.class, id);
-//            if (task != null) {
-//                session.remove(task);
-//            }
-//        }
-
-        //Handles the "delete" action with an SQL injection vulnerability
+//            Handles the "delete" action
         } else if ("delete".equals(action)) {
-            String id = request.getParameter("id");
+            //Gets the task id to be deleted
             try {
-                //Basic validation
-                if (id != null && !id.trim().isEmpty()) {
-                    String sql = "DELETE FROM Task WHERE id = " + id;
-                    session.createNativeQuery(sql).executeUpdate();
+            int id = Integer.parseInt(request.getParameter("id"));
+                //Finds the task by id and if it exists then it deletes it
+                Task task = session.find(Task.class, id);
+                if (task != null) {
+                    session.remove(task);
                 }
             } catch (Exception e) {
-                //Avoids crashing the app
-                System.out.println("Invalid SQL input: " + id);
                 e.printStackTrace();
             }
         }
+
+//        //Handles the "delete" action with an SQL injection vulnerability (for education purposes)
+//        } else if ("delete".equals(action)) {
+//            String id = request.getParameter("id");
+//            try {
+//                //Basic validation
+//                if (id != null && !id.trim().isEmpty()) {
+//                    String sql = "DELETE FROM Task WHERE id = " + id;
+//                    session.createNativeQuery(sql).executeUpdate();
+//                }
+//            } catch (Exception e) {
+//                //Avoids crashing the app
+//                System.out.println("Invalid SQL input: " + id);
+//                e.printStackTrace();
+//            }
+//        }
 
         //Commits the transaction and closes the session
         tx.commit();
